@@ -53,10 +53,10 @@
             {% endif %}
         </div>
         <div class="d-flex gap-3 text-secondary small ms-3">
-            <span>🚘 <strong class="text-danger">{{ total_vehiculos_disponibles }}</strong> disponibles</span>
+            <span><strong class="text-danger">{{ total_vehiculos_disponibles }}</strong> disponibles</span>
             {% if user.is_authenticated %}
-            <span>👥 <strong class="text-danger">{{ total_clientes }}</strong> clientes</span>
-            <span>💰 <strong class="text-danger">{{ total_ventas }}</strong> ventas</span>
+            <span><strong class="text-danger">{{ total_clientes }}</strong> clientes</span>
+            <span><strong class="text-danger">{{ total_ventas }}</strong> ventas</span>
             {% endif %}
         </div>
     </div>
