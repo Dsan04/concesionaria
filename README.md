@@ -63,7 +63,7 @@ git clone https://github.com/Dsan04/concesionaria.git
 cd concesionaria
 
 # Instalar dependencias
-pip install django pillow
+pip install -r requirements.txt
 
 # Aplicar migraciones
 python manage.py migrate
