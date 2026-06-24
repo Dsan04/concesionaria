@@ -2,7 +2,7 @@
 {% block title %}Clientes - AutoDel{% endblock %}
 {% block content %}
 <div class="page-header">
-    <h2>👥 Clientes</h2>
+    <h2>Clientes</h2>
     {% if perms.core.add_cliente %}
     <a href="{% url 'cliente_create' %}" class="btn btn-accent">+ Nuevo cliente</a>
     {% endif %}

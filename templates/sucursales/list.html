@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Sucursales - AutoDel{% endblock %}
 {% block content %}
-<div class="page-header">
-    <h2>🏢 Sucursales</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Sucursales</h4>
 </div>
-<div class="cards-grid">
+<div class="row g-4">
     {% for s in sucursales %}
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">{{ s.nombre }}</div>
-            <div class="card-subtitle">📍 {{ s.ciudad }}</div>
-            <p style="font-size:.9rem;color:#555;margin:.5rem 0">{{ s.direccion }}</p>
-            <p style="font-size:.9rem;color:#555">📞 {{ s.telefono }}</p>
-            <p style="margin-top:.8rem;font-size:.85rem;color:#888">
-                {{ s.vehiculos.count }} vehículo(s) · {{ s.vendedores.count }} vendedor(es)
-            </p>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ s.nombre }}</h5>
+                <p class="text-muted small mb-1">{{ s.ciudad }}</p>
+                <p style="font-size:.9rem;color:#555;margin:.5rem 0">{{ s.direccion }}</p>
+                <p style="font-size:.9rem;color:#555">{{ s.telefono }}</p>
+                <p style="margin-top:.8rem;font-size:.85rem;color:#888">
+                    {{ s.vehiculos.count }} vehículo(s) · {{ s.vendedores.count }} vendedor(es)
+                </p>
+            </div>
         </div>
     </div>
     {% empty %}
-    <p>No hay sucursales registradas.</p>
+    <p class="text-muted">No hay sucursales registradas.</p>
     {% endfor %}
 </div>
 {% endblock %}
