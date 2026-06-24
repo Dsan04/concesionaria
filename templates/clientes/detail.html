@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{{ cliente }} - AutoDel{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>{{ cliente.apellido }}, {{ cliente.nombre }}</h2>
+    <div style="display:flex;gap:.5rem">
+        <a href="{% url 'cliente_list' %}" class="btn btn-outline">← Volver</a>
+        {% if perms.core.change_cliente %}
+        <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-warning">Editar</a>
+        {% endif %}
+        {% if perms.core.delete_cliente %}
+        <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-danger">Eliminar</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="detail-card">
+    <div class="detail-grid">
+        <div class="detail-field"><label>Nombre</label><span>{{ cliente.nombre }}</span></div>
+        <div class="detail-field"><label>Apellido</label><span>{{ cliente.apellido }}</span></div>
+        <div class="detail-field"><label>DNI</label><span>{{ cliente.dni }}</span></div>
+        <div class="detail-field"><label>Email</label><span>{{ cliente.email }}</span></div>
+        <div class="detail-field"><label>Teléfono</label><span>{{ cliente.telefono }}</span></div>
+        <div class="detail-field"><label>Dirección</label><span>{{ cliente.direccion|default:"—" }}</span></div>
+    </div>
+
+    {% if cliente.ventas.exists %}
+    <h3 style="margin-top:2rem;margin-bottom:1rem">Historial de compras</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>#</th><th>Vehículo</th><th>Fecha</th><th>Precio final</th></tr></thead>
+            <tbody>
+                {% for v in cliente.ventas.all %}
+                <tr>
+                    <td>{{ v.pk }}</td>
+                    <td>{{ v.vehiculo }}</td>
+                    <td>{{ v.fecha }}</td>
+                    <td>${{ v.precio_final|floatformat:0 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

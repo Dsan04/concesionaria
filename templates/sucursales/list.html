@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Sucursales - AutoDel{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>🏢 Sucursales</h2>
+</div>
+<div class="cards-grid">
+    {% for s in sucursales %}
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">{{ s.nombre }}</div>
+            <div class="card-subtitle">📍 {{ s.ciudad }}</div>
+            <p style="font-size:.9rem;color:#555;margin:.5rem 0">{{ s.direccion }}</p>
+            <p style="font-size:.9rem;color:#555">📞 {{ s.telefono }}</p>
+            <p style="margin-top:.8rem;font-size:.85rem;color:#888">
+                {{ s.vehiculos.count }} vehículo(s) · {{ s.vendedores.count }} vendedor(es)
+            </p>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay sucursales registradas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

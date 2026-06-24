@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Vehículos - AutoDel{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">🚗 Vehículos</h4>
+    {% if perms.core.add_vehiculo %}
+    <a href="{% url 'vehiculo_create' %}" class="btn btn-accent">+ Nuevo vehículo</a>
+    {% endif %}
+</div>
+
+<div class="row g-4">
+    {% for v in vehiculos %}
+    <div class="col-md-4">
+        <div class="card h-100 {% if not v.disponible %}opacity-75{% endif %}">
+            {% if not v.disponible %}
+            <div class="position-relative">
+            {% endif %}
+
+            {% if v.imagen %}
+            <img src="{{ v.imagen.url }}" alt="{{ v }}" class="card-img-top">
+            {% else %}
+            <div class="card-img-placeholder rounded-top">🚗</div>
+            {% endif %}
+
+            {% if not v.disponible %}
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center rounded-top" style="background:rgba(0,0,0,0.45);">
+                <span class="badge bg-danger fs-6 px-3 py-2">VENDIDO</span>
+            </div>
+            </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title mb-1">{{ v.marca }} {{ v.modelo }}</h5>
+                <p class="text-muted small mb-2">{{ v.anio }} · {{ v.color }} · {{ v.get_transmision_display }}</p>
+                <span class="badge bg-{% if v.condicion == 'nuevo' %}success{% else %}warning{% endif %} mb-2">
+                    {{ v.get_condicion_display }}
+                </span>
+                <div class="price">${{ v.precio|floatformat:0 }}</div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3 d-flex gap-2">
+                {% if v.disponible %}
+                <a href="{% url 'vehiculo_detail' v.pk %}" class="btn btn-dark btn-sm">Ver detalle</a>
+                {% else %}
+                <a href="{% url 'vehiculo_detail' v.pk %}" class="btn btn-outline-secondary btn-sm">Ver detalle</a>
+                {% endif %}
+                {% if perms.core.change_vehiculo %}
+                <a href="{% url 'vehiculo_update' v.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                {% endif %}
+                {% if perms.core.delete_vehiculo %}
+                <a href="{% url 'vehiculo_delete' v.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No hay vehículos cargados.</p>
+    {% endfor %}
+</div>
+{% endblock %}

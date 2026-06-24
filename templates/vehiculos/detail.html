@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vehiculo }} - AutoDel{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
+    <div style="display:flex;gap:.5rem">
+        <a href="{% url 'vehiculo_list' %}" class="btn btn-outline">← Volver</a>
+        {% if perms.core.change_vehiculo %}
+        <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-warning">Editar</a>
+        {% endif %}
+        {% if perms.core.delete_vehiculo %}
+        <a href="{% url 'vehiculo_delete' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="detail-card">
+    {% if vehiculo.imagen %}
+    <img src="{{ vehiculo.imagen.url }}" alt="{{ vehiculo }}" class="detail-img">
+    {% else %}
+    <div class="card-img-placeholder" style="border-radius:10px;margin-bottom:1.5rem;height:300px;font-size:5rem;">🚗</div>
+    {% endif %}
+
+    <div class="detail-grid">
+        <div class="detail-field">
+            <label>Marca</label>
+            <span>{{ vehiculo.marca }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Modelo</label>
+            <span>{{ vehiculo.modelo }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Año</label>
+            <span>{{ vehiculo.anio }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Color</label>
+            <span>{{ vehiculo.color }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Condición</label>
+            <span>{{ vehiculo.get_condicion_display }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Transmisión</label>
+            <span>{{ vehiculo.get_transmision_display }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Kilometraje</label>
+            <span>{{ vehiculo.kilometraje }} km</span>
+        </div>
+        <div class="detail-field">
+            <label>Precio</label>
+            <span style="color:var(--accent);font-size:1.3rem;">${{ vehiculo.precio|floatformat:0 }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Sucursal</label>
+            <span>{{ vehiculo.sucursal }}</span>
+        </div>
+        <div class="detail-field">
+            <label>Estado</label>
+            <span class="badge badge-{% if vehiculo.disponible %}info{% else %}danger{% endif %}">
+                {% if vehiculo.disponible %}Disponible{% else %}Vendido{% endif %}
+            </span>
+        </div>
+    </div>
+
+    {% if vehiculo.descripcion %}
+    <div class="detail-field" style="margin-top:1rem">
+        <label>Descripción</label>
+        <p>{{ vehiculo.descripcion }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

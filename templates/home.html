@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}AutoDel - Inicio{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Bienvenido a <span>AutoDel</span></h1>
+    <p>Sistema de gestión para concesionaria de vehículos. Gestioná stock, clientes y ventas en un solo lugar.</p>
+    <a href="{% url 'vehiculo_list' %}" class="btn btn-accent">Ver vehículos disponibles</a>
+</div>
+
+{% if user.is_authenticated %}
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="number">{{ total_vehiculos_disponibles }}</div>
+            <div class="text-muted small">Vehículos disponibles</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="number">{{ total_clientes }}</div>
+            <div class="text-muted small">Clientes registrados</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="number">{{ total_ventas }}</div>
+            <div class="text-muted small">Ventas realizadas</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold mb-0">Últimos vehículos ingresados</h4>
+    <a href="{% url 'vehiculo_list' %}" class="btn btn-outline-secondary btn-sm">Ver todos</a>
+</div>
+
+<div class="row g-4">
+    {% for v in vehiculos %}
+    <div class="col-md-4">
+        <div class="card h-100">
+            {% if v.imagen %}
+            <img src="{{ v.imagen.url }}" alt="{{ v }}" class="card-img-top">
+            {% else %}
+            <div class="card-img-placeholder rounded-top">🚗</div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title mb-1">{{ v.marca }} {{ v.modelo }}</h5>
+                <p class="text-muted small mb-2">{{ v.anio }} · {{ v.color }} · {{ v.get_transmision_display }}</p>
+                <span class="badge bg-{% if v.condicion == 'nuevo' %}success{% else %}warning{% endif %} mb-2">
+                    {{ v.get_condicion_display }}
+                </span>
+                <div class="price">${{ v.precio|floatformat:0 }}</div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+                <a href="{% url 'vehiculo_detail' v.pk %}" class="btn btn-dark btn-sm">Ver detalle</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No hay vehículos cargados aún.</p>
+    {% endfor %}
+</div>
+{% endblock %}

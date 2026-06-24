@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }} - AutoDel{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+    <a href="{% url 'vehiculo_list' %}" class="btn btn-outline">← Volver</a>
+</div>
+
+<div class="form-card">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-accent">Guardar</button>
+            <a href="{% url 'vehiculo_list' %}" class="btn btn-outline">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
