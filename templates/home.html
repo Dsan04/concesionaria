@@ -17,18 +17,22 @@
             <div class="text-muted small">Vehículos disponibles</div>
         </div>
     </div>
+    {% if perms.core.view_cliente %}
     <div class="col-md-4">
         <div class="stat-card">
             <div class="number">{{ total_clientes }}</div>
             <div class="text-muted small">Clientes registrados</div>
         </div>
     </div>
+    {% endif %}
+    {% if perms.core.view_venta %}
     <div class="col-md-4">
         <div class="stat-card">
             <div class="number">{{ total_ventas }}</div>
             <div class="text-muted small">Ventas realizadas</div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endif %}
 
