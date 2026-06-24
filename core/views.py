@@ -101,13 +101,13 @@ def vehiculo_delete(request, pk):
 
 # ---------- CLIENTES ----------
 
-@login_required
+@permission_required('core.view_cliente', raise_exception=True)
 def cliente_list(request):
     clientes = Cliente.objects.all()
     return render(request, 'clientes/list.html', {'clientes': clientes})
 
 
-@login_required
+@permission_required('core.view_cliente', raise_exception=True)
 def cliente_detail(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     return render(request, 'clientes/detail.html', {'cliente': cliente})
@@ -197,7 +197,7 @@ def marca_delete(request, pk):
 
 # ---------- VENTAS ----------
 
-@login_required
+@permission_required('core.view_venta', raise_exception=True)
 def venta_list(request):
     ventas = Venta.objects.select_related('vehiculo', 'cliente', 'vendedor').all()
     return render(request, 'ventas/list.html', {'ventas': ventas})

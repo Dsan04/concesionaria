@@ -36,8 +36,12 @@
         <div class="d-flex align-items-center gap-3">
             <a href="/vehiculos/" class="nav-link text-white">Vehículos</a>
             {% if user.is_authenticated %}
+            {% if perms.core.view_cliente %}
             <a href="/clientes/" class="nav-link text-white">Clientes</a>
+            {% endif %}
+            {% if perms.core.view_venta %}
             <a href="/ventas/" class="nav-link text-white">Ventas</a>
+            {% endif %}
             <a href="/marcas/" class="nav-link text-white">Marcas</a>
             <a href="/sucursales/" class="nav-link text-white">Sucursales</a>
             <span class="text-secondary small">{{ user.get_full_name|default:user.username }}</span>
