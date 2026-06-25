@@ -43,6 +43,7 @@ def logout_view(request):
 
 # ---------- HOME ----------
 
+@login_required
 def home(request):
     vehiculos = Vehiculo.objects.filter(disponible=True)[:6]
     return render(request, 'home.html', {'vehiculos': vehiculos})
