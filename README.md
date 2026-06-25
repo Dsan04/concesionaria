@@ -37,19 +37,19 @@ Hice un sistema web para gestionar una concesionaria de autos. Desde acá podés
 ## Capturas
 
 ### Login
-![Login](capturas/cap_login.png)
+![Login](capturas/cap_login.png.png)
 
 ### Inicio
-![Home](capturas/cap_home.png)
+![Home](capturas/cap_home.png.png)
 
 ### Vehículos (con estado vendido)
-![Vehiculos](capturas/cap_vehiculos.png)
+![Vehiculos](capturas/cap_vehiculos.png.png)
 
 ### Clientes
-![Clientes](capturas/cap_clientes.png)
+![Clientes](capturas/cap_clientes.png.png)
 
 ### Panel de administración
-![Admin](capturas/cap_admin.png)
+![Admin](capturas/cap_admin.png.png)
 
 ---
 
